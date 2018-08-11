@@ -21,8 +21,8 @@ public class SalesmanParserTest {
     @Test
     public void ShoulParseLineThriwsException() {
 
-        String message = "The line must start with " + Constants.SALESMATYPE;
-        String line = "004ç3245678865434çRenatoç40000.99";
+        String message = "The line must start with " + Constants.SALESMANTYPE;
+        String line = "002ç3245678865434çRenatoç40000.99";
         try {
             Salesman salesman = SalesmanParser.parse(line);
         } catch (Exception e) {

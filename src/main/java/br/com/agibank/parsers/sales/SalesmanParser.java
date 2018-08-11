@@ -7,8 +7,8 @@ public class SalesmanParser {
 
     public static Salesman parse(String line) throws Exception {
 
-        if(!line.startsWith(Constants.SALESMATYPE))
-            throw new Exception("The line must start with " + Constants.SALESMATYPE);
+        if(!line.startsWith(Constants.SALESMANTYPE))
+            throw new Exception("The line must start with " + Constants.SALESMANTYPE);
 
         String[] data = line.split(Constants.SEPARATOR);
 
