@@ -1,6 +1,6 @@
 package br.com.agibank.parsers.sales;
 
-import br.com.agibank.model.sales.FullSaleFile;
+import br.com.agibank.model.sales.SalesFile;
 import br.com.agibank.parsers.IFileParser;
 import br.com.agibank.utilities.Console;
 
@@ -8,26 +8,26 @@ import java.util.List;
 
 public class SalesFileParser implements IFileParser {
 
-    private FullSaleFile file;
+    private SalesFile file;
 
-    public FullSaleFile getFullSaleFile(){
+    public SalesFile getFullSaleFile(){
         return  file;
     }
 
     @Override
     public void parseFile(List<String> lines) {
 
-        file = new FullSaleFile();
+        file = new SalesFile();
 
         try {
             for (String line : lines) {
 
                 if(line.startsWith(Constants.SALESMANTYPE)){
-                    file.Salesmen.add(SalesmanParser.parse(line));
+                    file.addSalesman(SalesmanParser.parse(line));
                 } else if(line.startsWith(Constants.CUSTOMERTYPE)){
-                    file.Customers.add(CustomerParser.parse(line));
+                    file.addCustomer(CustomerParser.parse(line));
                 } else if(line.startsWith(Constants.SALETYPE)){
-                    file.Sales.add(SaleParser.parse(line));
+                    file.addSale(SaleParser.parse(line));
                 } else{
                     String message = "Data type of this line is not valid";
                     Console.LogError(message + ": " + line);
@@ -35,6 +35,7 @@ public class SalesFileParser implements IFileParser {
                 }
 
             }
+
         } catch (Exception e) {
             e.printStackTrace();
         }

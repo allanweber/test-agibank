@@ -1,6 +1,6 @@
 package br.com.agibank.parsers;
 
-import br.com.agibank.model.sales.FullSaleFile;
+import br.com.agibank.model.sales.SalesFile;
 import br.com.agibank.model.sales.Sale;
 import br.com.agibank.parsers.sales.SalesFileParser;
 import org.junit.Test;
@@ -38,7 +38,7 @@ public class SalesFileParserTest {
         SalesFileParser parser = new SalesFileParser();
         parser.parseFile(lines);
 
-        FullSaleFile file  = parser.getFullSaleFile();
+        SalesFile file  = parser.getFullSaleFile();
 
         assertTrue(file.getSalesmen().size() == 2);
         assertTrue(file.getCustomers().size() == 2);
