@@ -15,7 +15,7 @@ public class WatcherService {
     }
 
     public void registerListener(IFileEventListener fileListener) {
-        Objects.requireNonNull(fileListener, "O parâmetro 'fileListener' não pode ser nulo");
+        Objects.requireNonNull(fileListener, "The parameter 'fileListener' mustn't be null");
         this.fileEventListener.add(fileListener);
     }
 
@@ -25,7 +25,7 @@ public class WatcherService {
 
     public void start(String pathToWatch) throws IOException, InterruptedException {
 
-        Objects.requireNonNull(pathToWatch, "O parâmetro 'pathToWatch' não pode ser nulo");
+        Objects.requireNonNull(pathToWatch, "The parameter 'fileListener' mustn't be null");
         WatchService watchService = FileSystems.getDefault().newWatchService();
         Path path = Paths.get(pathToWatch);
         path.register(watchService, StandardWatchEventKinds.ENTRY_CREATE);

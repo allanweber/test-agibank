@@ -2,7 +2,6 @@ package br.com.agibank.Service;
 
 import org.junit.Test;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.NoSuchFileException;
 
@@ -13,37 +12,35 @@ public class WatcherServiceTest {
     @Test
     public void ShouldNotRegisterListenerNull() {
 
-        String message = "O parâmetro 'fileListener' não pode ser nulo";
+        String message = "The parameter 'fileListener' mustn't be null\"";
         WatcherService watcherService = new WatcherService();
 
         try {
             watcherService.registerListener(null);
         } catch (Exception ex) {
-            assertTrue("Mensagem deveria ser 'O parâmetro 'fileListener' não pode ser nulo'", ex.getMessage().equals(message));
+            assertTrue("Message should be " + message, ex.getMessage().equals(message));
         }
 
     }
 
     @Test
     public void ShouldRegisterListener() {
-
-        String message = "O parâmetro 'fileListener' não pode ser nulo";
         WatcherService watcherService = new WatcherService();
 
-        watcherService.registerListener(new FileParser());
+        watcherService.registerListener(new FileReaderService());
 
-        assertTrue("Deveria ter um listener", watcherService.getListeners().size() == 1);
+        assertTrue("Should has one listener", watcherService.getListeners().size() == 1);
     }
 
     @Test
     public void ShouldStartThrowsExceptionOfNullPath() {
-        String message = "O parâmetro 'pathToWatch' não pode ser nulo";
+        String message = "The parameter 'pathToWatch' mustn't be null";
         WatcherService watcherService = new WatcherService();
 
         try {
             watcherService.start(null);
         } catch (Exception ex) {
-            assertTrue("Mensagem deveria ser 'O parâmetro 'pathToWatch' não pode ser nulo'", ex.getMessage().equals(message));
+            assertTrue("Message should be " + message, ex.getMessage().equals(message));
         }
     }
 

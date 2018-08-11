@@ -2,7 +2,7 @@ package br.com.agibank.Service;
 
 import java.io.IOException;
 
-public class FileAnalizer {
+public class FileAnalizerService {
 
     private String pathComplement = "\\data\\in";
     private String pathRootProperty = "user.home";
@@ -13,7 +13,7 @@ public class FileAnalizer {
 
         WatcherService watcherService = new WatcherService();
 
-        FileParser parser = new FileParser();
+        FileReaderService parser = new FileReaderService();
         watcherService.registerListener(parser);
 
         try {

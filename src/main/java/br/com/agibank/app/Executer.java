@@ -1,13 +1,13 @@
 package br.com.agibank.app;
 
-import br.com.agibank.Service.FileAnalizer;
+import br.com.agibank.Service.FileAnalizerService;
 
 public class Executer {
 
     public static void main(String[] args) {
 
         try{
-            FileAnalizer analizer = new FileAnalizer();
+            FileAnalizerService analizer = new FileAnalizerService();
             analizer.AnalisePath();
         } catch (Exception ex){
             ex.printStackTrace();
