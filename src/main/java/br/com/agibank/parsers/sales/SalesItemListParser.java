@@ -11,6 +11,8 @@ public class SalesItemListParser {
 
     public static List<SaleItem> parse(String line) {
 
+        line = line.replace("[", "").replace("]", "");
+
         List<SaleItem> itens = new ArrayList<>();
 
         String[] data = line.split(SEPARATOR);

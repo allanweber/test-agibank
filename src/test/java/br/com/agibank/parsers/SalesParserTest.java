@@ -1,6 +1,6 @@
 package br.com.agibank.parsers;
 
-import br.com.agibank.parsers.sales.SalesParser;
+import br.com.agibank.parsers.sales.SalesFileParser;
 import org.junit.Test;
 
 import java.util.Arrays;
@@ -12,7 +12,7 @@ public class SalesParserTest {
     @Test
     public void ShouldParseFileThrowsException() {
         String message = "Data type of this line is not valid";
-        SalesParser parser = new SalesParser();
+        SalesFileParser parser = new SalesFileParser();
         try {
             parser.parseFile(Arrays.asList("004ç1234567891234çDiegoç50000"));
         } catch (Exception e) {

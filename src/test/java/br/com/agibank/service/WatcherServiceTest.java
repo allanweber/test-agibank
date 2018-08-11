@@ -1,6 +1,6 @@
 package br.com.agibank.service;
 
-import br.com.agibank.parsers.sales.SalesParser;
+import br.com.agibank.parsers.sales.SalesFileParser;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -28,7 +28,7 @@ public class WatcherServiceTest {
     public void ShouldRegisterListener() {
         WatcherService watcherService = new WatcherService();
 
-        FileReaderService reader = new FileReaderService(new SalesParser());
+        FileReaderService reader = new FileReaderService(new SalesFileParser());
         watcherService.registerListener(reader);
 
         assertTrue("Should has one listener", watcherService.getListeners().size() == 1);

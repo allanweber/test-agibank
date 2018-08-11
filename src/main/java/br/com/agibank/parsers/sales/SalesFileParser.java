@@ -6,7 +6,7 @@ import br.com.agibank.utilities.Console;
 import java.util.Arrays;
 import java.util.List;
 
-public class SalesParser implements IFileParser {
+public class SalesFileParser implements IFileParser {
 
     private List<String> dataTypes = Arrays.asList("001", "002", "003");
 

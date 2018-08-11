@@ -6,6 +6,8 @@ public class Constants {
 
     public static final String CUSTOMERTYPE = "002";
 
+    public static final String SALETYPE = "003";
+
     public static final String SEPARATOR = "ç";
 
 }

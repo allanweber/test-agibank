@@ -1,6 +1,6 @@
 package br.com.agibank.service;
 
-import br.com.agibank.parsers.sales.SalesParser;
+import br.com.agibank.parsers.sales.SalesFileParser;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -11,7 +11,7 @@ public class FileReaderServiceTest {
     public void ShouldFileAddedThrowsException() {
 
         String message = "Invalid format, only allowed .dat file extension";
-        FileReaderService fileReaderService = new FileReaderService(new SalesParser());
+        FileReaderService fileReaderService = new FileReaderService(new SalesFileParser());
 
         try {
             fileReaderService.validateExtension("arquivo.json");
@@ -23,7 +23,7 @@ public class FileReaderServiceTest {
     @Test
     public void ShouldFileAddedSucceed() throws Exception {
 
-        FileReaderService fileReaderService = new FileReaderService(new SalesParser());
+        FileReaderService fileReaderService = new FileReaderService(new SalesFileParser());
 
         fileReaderService.validateExtension("arquivo.dat");
 
