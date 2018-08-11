@@ -1,5 +1,6 @@
 package br.com.agibank.model.sales;
 
+import br.com.agibank.parsers.exceptions.FileDataException;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -13,7 +14,7 @@ public class SalesFileTest {
     private SalesFile salesFile;
 
     @Before
-    public void setup() {
+    public void setup() throws FileDataException {
         salesFile = new SalesFile();
 
         salesFile.addSalesman(
@@ -102,7 +103,7 @@ public class SalesFileTest {
     }
 
     @Test
-    public void addSale() {
+    public void addSale() throws FileDataException {
         assertTrue(salesFile.getSales().size() == 1);
 
         salesFile.addSale(

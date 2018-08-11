@@ -1,5 +1,6 @@
 package br.com.agibank.model.sales;
 
+import br.com.agibank.parsers.exceptions.FileDataException;
 import org.junit.Test;
 
 import java.math.BigDecimal;
@@ -8,6 +9,45 @@ import java.util.Arrays;
 import static org.junit.Assert.*;
 
 public class SalesFileLogicTest {
+
+    @Test
+    public void notShouldAddSaleWithoutSalesman(){
+        SalesFile file = new SalesFile();
+        Sale sale = Sale.builder()
+                .id(1)
+                .salesmanName("Vendedor")
+                .itens(
+                        Arrays.asList(
+                                SaleItem.builder()
+                                        .id(1)
+                                        .price(BigDecimal.valueOf(2.55))
+                                        .quantity(BigDecimal.valueOf(3))
+                                        .build()
+                        )
+                )
+                .build();
+
+        Sale saleNoMan = Sale.builder()
+                .id(1)
+                .itens(
+                        Arrays.asList(
+                                SaleItem.builder()
+                                        .id(1)
+                                        .price(BigDecimal.valueOf(2.55))
+                                        .quantity(BigDecimal.valueOf(3))
+                                        .build()
+                        )
+                )
+                .build();
+
+        try {
+            file.addSale(sale);
+            assertTrue(file.getSales().size() == 1);
+            file.addSale(saleNoMan);
+        } catch (FileDataException e) {
+            assertTrue(e.getClass().equals(FileDataException.class));
+        }
+    }
 
     @Test
     public void notShouldAddEqualSalesMan() {
@@ -45,7 +85,7 @@ public class SalesFileLogicTest {
     }
 
     @Test
-    public void shouldSetSalesmanToSale() {
+    public void shouldSetSalesmanToSale() throws FileDataException {
         SalesFile file = new SalesFile();
         file.addSale(
                 Sale.builder()
@@ -100,7 +140,7 @@ public class SalesFileLogicTest {
     }
 
     @Test
-    public void notShouldSetSalesmanToSale() {
+    public void notShouldSetSalesmanToSale() throws FileDataException {
         SalesFile file = new SalesFile();
         file.addSale(
                 Sale.builder()

@@ -1,6 +1,8 @@
 package br.com.agibank.model.sales;
 
 
+import br.com.agibank.parsers.exceptions.FileDataException;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -58,8 +60,17 @@ public class SalesFile {
         return sales;
     }
 
-    public void addSale(Sale sale){
+    public void addSale(Sale sale) throws FileDataException {
+        if(sale.getSalesman() != null){
+            sale.setSalesmanName(sale.getSalesman().getName());
+        } else if(sale.getSalesmanName() != null && ! sale.getSalesmanName().isEmpty()){
+
+        } else{
+            throw new FileDataException("There is no information about salesman in this sale");
+        }
+
         sales.add(sale);
+
     }
 
 
