@@ -85,7 +85,7 @@ public class SalesFileLogicTest {
     }
 
     @Test
-    public void shouldSetSalesmanToSale() throws FileDataException {
+    public void shouldSetSalesmanToSaleAddingSaleman() throws FileDataException {
         SalesFile file = new SalesFile();
         file.addSale(
                 Sale.builder()
@@ -210,5 +210,71 @@ public class SalesFileLogicTest {
         Customer customerNew = Customer.builder().name("Cliente 2").businessArea("IT").cpnj("123456").build();
         file.addCustomer(customerNew);
         assertTrue(file.getCustomers().size() == 2);
+    }
+
+    @Test
+    public void shouldSetSalesmanToSaleAddingSale() throws FileDataException{
+        SalesFile file = new SalesFile();
+
+        Salesman vendedor1 = Salesman.builder()
+                .cpf("2345")
+                .name("Vendedor 1")
+                .salary(BigDecimal.valueOf(1234.56))
+                .build();
+        file.addSalesman(vendedor1);
+
+        Salesman vendedor2 = Salesman.builder()
+                .cpf("12345")
+                .name("Vendedor 2")
+                .salary(BigDecimal.valueOf(1234.56))
+                .build();
+        file.addSalesman(vendedor2);
+
+        assertTrue(file.getSalesmen().size() == 2);
+
+        Sale noMansSale = Sale.builder()
+                .id(1)
+                .salesmanName("Any Salesman")
+                .itens(
+                        Arrays.asList(
+                                SaleItem.builder()
+                                        .id(1)
+                                        .price(BigDecimal.valueOf(2.55))
+                                        .quantity(BigDecimal.valueOf(3))
+                                        .build()
+                        )
+                )
+                .build();
+
+        file.addSale(noMansSale);
+        Sale selected = file.getSales().get(0);
+        assertTrue(file.getSales().size() == 1);
+        assertTrue(selected.getSalesmanName().equals("Any Salesman"));
+        assertTrue(selected.getSalesman() == null);
+
+        Sale noVendedor1 = Sale.builder()
+                .id(1)
+                .salesmanName("Vendedor 1")
+                .itens(
+                        Arrays.asList(
+                                SaleItem.builder()
+                                        .id(1)
+                                        .price(BigDecimal.valueOf(2.55))
+                                        .quantity(BigDecimal.valueOf(3))
+                                        .build()
+                        )
+                )
+                .build();
+
+        file.addSale(noVendedor1);
+        selected = file.getSales().get(1);
+        assertTrue(file.getSales().size() == 2);
+        assertTrue(selected.getSalesmanName().equals("Vendedor 1"));
+        assertTrue(selected.getSalesman() != null);
+        assertTrue(selected.getSalesman().getCpf().equals("2345"));
+
+        selected = file.getSales().get(0);
+        assertTrue(selected.getSalesmanName().equals("Any Salesman"));
+        assertTrue(selected.getSalesman() == null);
     }
 }

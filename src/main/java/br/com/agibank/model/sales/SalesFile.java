@@ -18,66 +18,72 @@ public class SalesFile {
         sales = new ArrayList<>();
     }
 
-    public List<Salesman> getSalesmen(){
+    public List<Salesman> getSalesmen() {
         return salesmen;
     }
 
-    public void addSalesman(Salesman salesman){
+    public void addSalesman(Salesman salesman) {
 
-        for (Salesman man: salesmen){
-            if(man.equals(salesman))
+        for (Salesman man : salesmen) {
+            if (man.equals(salesman))
                 return;
         }
 
         salesmen.add(salesman);
 
-        Sale selected =  sales.stream().filter((sale) ->
-                sale.getSalesman() == null && sale.getSalesmanName().equals(salesman.getName()))
+        Sale selected = sales
+                .stream()
+                .filter((sale) ->
+                        sale.getSalesman() == null && sale.getSalesmanName().equals(salesman.getName()))
                 .findFirst()
                 .orElse(null);
 
-        if(selected != null){
+        if (selected != null) {
             selected.setSalesman(salesman);
         }
 
     }
 
-    public List<Customer> getCustomers(){
+    public List<Customer> getCustomers() {
         return customers;
     }
 
-    public void addCustomer(Customer customer){
+    public void addCustomer(Customer customer) {
 
-        for (Customer current: customers){
-            if(current.equals(customer))
+        for (Customer current : customers) {
+            if (current.equals(customer))
                 return;
         }
 
         customers.add(customer);
     }
 
-    public List<Sale> getSales(){
+    public List<Sale> getSales() {
         return sales;
     }
 
     public void addSale(Sale sale) throws FileDataException {
-        if(sale.getSalesman() != null){
+        if (sale.getSalesman() != null) {
             sale.setSalesmanName(sale.getSalesman().getName());
-        } else if(sale.getSalesmanName() != null && ! sale.getSalesmanName().isEmpty()){
+        } else if (sale.getSalesmanName() != null && !sale.getSalesmanName().isEmpty()) {
 
-        } else{
+            Salesman man = salesmen
+                    .stream()
+                    .filter((cur) ->
+                            cur.getName().equals(sale.getSalesmanName()))
+                    .findFirst()
+                    .orElse(null);
+
+            if (man != null)
+                sale.setSalesman(man);
+
+        } else {
             throw new FileDataException("There is no information about salesman in this sale");
         }
 
         sales.add(sale);
 
     }
-
-
-
-
-
-
 
 
 }
