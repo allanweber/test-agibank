@@ -3,6 +3,7 @@ package br.com.agibank.parsers.sales;
 import br.com.agibank.model.sales.Sale;
 import br.com.agibank.model.sales.SaleItem;
 import br.com.agibank.model.sales.Salesman;
+import br.com.agibank.parsers.exceptions.InvalidFileDataSizeException;
 import org.junit.Test;
 
 import java.util.List;
@@ -69,6 +70,17 @@ public class SaleParserTest {
             Sale sale = SaleParser.parse(line);
         } catch (Exception e) {
             assertTrue(e.getClass().equals(NumberFormatException.class));
+        }
+    }
+
+    @Test
+    public void ShoulParseLineThrowsInvalidFileDataSizeException() {
+
+        try {
+            String line = "003ç1ç[1-34-10,2-33-123,3-40-0.10]çRenatoçOutro";
+            Sale sale = SaleParser.parse(line);
+        } catch (Exception e) {
+            assertTrue(e.getClass().equals(InvalidFileDataSizeException.class));
         }
     }
 }

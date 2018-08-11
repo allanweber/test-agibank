@@ -1,7 +1,9 @@
 package br.com.agibank.parsers.sales;
 
 import br.com.agibank.model.sales.Customer;
+import br.com.agibank.model.sales.SaleItem;
 import br.com.agibank.model.sales.Salesman;
+import br.com.agibank.parsers.exceptions.InvalidFileDataSizeException;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -30,5 +32,16 @@ public class CustomerParserTest {
             assertTrue(e.getMessage().equals(message));
         }
 
+    }
+
+    @Test
+    public void ShoulParseLineThrowsInvalidFileDataSizeException() {
+
+        try {
+            String line = "001ç2345675434544345çJose da SilvaçRuralçOutro";
+            SaleItem item = SaleItemParser.parse(line);
+        } catch (Exception e) {
+            assertTrue(e.getClass().equals(InvalidFileDataSizeException.class));
+        }
     }
 }
