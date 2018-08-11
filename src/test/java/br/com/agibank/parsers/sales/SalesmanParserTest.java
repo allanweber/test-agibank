@@ -8,7 +8,7 @@ import static org.junit.Assert.*;
 public class SalesmanParserTest {
 
     @Test
-    public void ShoulParseLineSucessed() throws Exception {
+    public void ShoulParseLineSucceed() throws Exception {
 
         String line = "001ç3245678865434çRenatoç40000.99";
         Salesman salesman = SalesmanParser.parse(line);
@@ -19,7 +19,7 @@ public class SalesmanParserTest {
     }
 
     @Test
-    public void ShoulParseLineThriwsException() {
+    public void ShoulParseLineThrowsException() {
 
         String message = "The line must start with " + Constants.SALESMANTYPE;
         String line = "002ç3245678865434çRenatoç40000.99";
@@ -29,5 +29,17 @@ public class SalesmanParserTest {
             assertTrue(e.getMessage().equals(message));
         }
 
+    }
+
+    @Test
+    public void ShoulParseLineThrowsNumberFormatException() {
+
+        String message = "The line must start with " + Constants.SALESMANTYPE;
+        String line = "001ç3245678865434çRenatoçSALARY";
+        try {
+            Salesman salesman = SalesmanParser.parse(line);
+        } catch (Exception e) {
+            assertTrue(e.getClass().equals(NumberFormatException.class));
+        }
     }
 }

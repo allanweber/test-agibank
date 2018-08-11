@@ -9,7 +9,7 @@ import static org.junit.Assert.*;
 public class CustomerParserTest {
 
     @Test
-    public void ShoulParseLineSucessed() throws Exception {
+    public void ShoulParseLineSucceed() throws Exception {
 
         String line = "002ç2345675434544345çJose da SilvaçRural";
         Customer customer = CustomerParser.parse(line);
