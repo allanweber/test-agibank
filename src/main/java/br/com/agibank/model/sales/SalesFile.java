@@ -21,7 +21,23 @@ public class SalesFile {
     }
 
     public void addSalesman(Salesman salesman){
+
+        for (Salesman man: salesmen){
+            if(man.equals(salesman))
+                return;
+        }
+
         salesmen.add(salesman);
+
+        Sale selected =  sales.stream().filter((sale) ->
+                sale.getSalesman() == null && sale.getSalesmanName().equals(salesman.getName()))
+                .findFirst()
+                .orElse(null);
+
+        if(selected != null){
+            selected.setSalesman(salesman);
+        }
+
     }
 
     public List<Customer> getCustomers(){
@@ -29,6 +45,12 @@ public class SalesFile {
     }
 
     public void addCustomer(Customer customer){
+
+        for (Customer current: customers){
+            if(current.equals(customer))
+                return;
+        }
+
         customers.add(customer);
     }
 

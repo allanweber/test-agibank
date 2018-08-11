@@ -36,6 +36,10 @@ public class SalesFileParser implements IFileParser {
 
             }
 
+            if(file != null){
+
+            }
+
         } catch (Exception e) {
             e.printStackTrace();
         }
