@@ -25,7 +25,7 @@ public class WatcherService {
 
     public void start(String pathToWatch) throws IOException, InterruptedException {
 
-        Objects.requireNonNull(pathToWatch, "The parameter 'fileListener' mustn't be null");
+        Objects.requireNonNull(pathToWatch, "The parameter 'pathToWatch' mustn't be null");
         WatchService watchService = FileSystems.getDefault().newWatchService();
         Path path = Paths.get(pathToWatch);
         path.register(watchService, StandardWatchEventKinds.ENTRY_CREATE);

@@ -1,5 +1,7 @@
 package br.com.agibank.Service;
 
+import br.com.agibank.Parsers.SalesParser;
+
 import java.io.IOException;
 
 public class FileAnalizerService {
@@ -13,8 +15,9 @@ public class FileAnalizerService {
 
         WatcherService watcherService = new WatcherService();
 
-        FileReaderService parser = new FileReaderService();
-        watcherService.registerListener(parser);
+        SalesParser parser = new SalesParser();
+        FileReaderService reader = new FileReaderService(parser);
+        watcherService.registerListener(reader);
 
         try {
             watcherService.start(homeDir);

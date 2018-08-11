@@ -1,5 +1,6 @@
 package br.com.agibank.Service;
 
+import br.com.agibank.Parsers.SalesParser;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -12,7 +13,7 @@ public class WatcherServiceTest {
     @Test
     public void ShouldNotRegisterListenerNull() {
 
-        String message = "The parameter 'fileListener' mustn't be null\"";
+        String message = "The parameter 'fileListener' mustn't be null";
         WatcherService watcherService = new WatcherService();
 
         try {
@@ -27,7 +28,8 @@ public class WatcherServiceTest {
     public void ShouldRegisterListener() {
         WatcherService watcherService = new WatcherService();
 
-        watcherService.registerListener(new FileReaderService());
+        FileReaderService reader = new FileReaderService(new SalesParser());
+        watcherService.registerListener(reader);
 
         assertTrue("Should has one listener", watcherService.getListeners().size() == 1);
     }
