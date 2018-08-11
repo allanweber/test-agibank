@@ -10,40 +10,39 @@ public class WatcherService {
 
     private List<IFileEventListener> fileEventListener;
 
-    public WatcherService(){
+    public WatcherService() {
         fileEventListener = new ArrayList<>();
     }
 
-    public void registerListener(IFileEventListener fileListener){
+    public void registerListener(IFileEventListener fileListener) {
         Objects.requireNonNull(fileListener, "O parâmetro 'fileListener' não pode ser nulo");
         this.fileEventListener.add(fileListener);
     }
 
-    public void start(String pathToWatch){
-        try {
-            Objects.requireNonNull(pathToWatch, "O parâmetro 'pathToWatch' não pode ser nulo");
-            WatchService watchService = FileSystems.getDefault().newWatchService();
-            Path path = Paths.get(pathToWatch);
-            path.register(watchService, StandardWatchEventKinds.ENTRY_CREATE);
+    public List<IFileEventListener> getListeners() {
+        return this.fileEventListener;
+    }
 
-            WatchKey key;
-            while ((key = watchService.take()) != null) {
-                for (WatchEvent<?> event : key.pollEvents()) {
-                    for(IFileEventListener listener: fileEventListener){
+    public void start(String pathToWatch) throws IOException, InterruptedException {
 
-                        new Thread(() -> {
-                            listener.FileAdded(pathToWatch.concat("\\").concat(event.context().toString()));
-                        }).start();
+        Objects.requireNonNull(pathToWatch, "O parâmetro 'pathToWatch' não pode ser nulo");
+        WatchService watchService = FileSystems.getDefault().newWatchService();
+        Path path = Paths.get(pathToWatch);
+        path.register(watchService, StandardWatchEventKinds.ENTRY_CREATE);
 
-                    }
+        WatchKey key;
+        while ((key = watchService.take()) != null) {
+            for (WatchEvent<?> event : key.pollEvents()) {
+                for (IFileEventListener listener : fileEventListener) {
+
+                    new Thread(() -> {
+                        listener.FileAdded(pathToWatch.concat("\\").concat(event.context().toString()));
+                    }).start();
+
                 }
-                key.reset();
             }
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+            key.reset();
         }
+
     }
 }

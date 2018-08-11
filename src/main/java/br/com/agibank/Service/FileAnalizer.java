@@ -1,5 +1,7 @@
 package br.com.agibank.Service;
 
+import java.io.IOException;
+
 public class FileAnalizer {
 
     private String pathComplement = "\\data\\in";
@@ -14,6 +16,12 @@ public class FileAnalizer {
         FileParser parser = new FileParser();
         watcherService.registerListener(parser);
 
-        watcherService.start(homeDir);
+        try {
+            watcherService.start(homeDir);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }
