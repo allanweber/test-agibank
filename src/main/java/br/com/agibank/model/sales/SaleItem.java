@@ -1,4 +1,4 @@
-package br.com.agibank.model.Sales;
+package br.com.agibank.model.sales;
 
 import lombok.Builder;
 import lombok.Data;

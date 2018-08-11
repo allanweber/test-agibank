@@ -1,4 +1,4 @@
-package br.com.agibank.Service;
+package br.com.agibank.service;
 
 import java.io.IOException;
 import java.nio.file.*;

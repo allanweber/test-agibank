@@ -1,6 +1,6 @@
-package br.com.agibank.Service;
+package br.com.agibank.service;
 
-import br.com.agibank.Parsers.SalesParser;
+import br.com.agibank.parsers.sales.SalesParser;
 
 import java.io.IOException;
 

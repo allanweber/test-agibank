@@ -1,6 +1,6 @@
-package br.com.agibank.Service;
+package br.com.agibank.service;
 
-import br.com.agibank.Parsers.IFileParser;
+import br.com.agibank.parsers.IFileParser;
 import br.com.agibank.utilities.Console;
 
 import java.io.BufferedReader;

@@ -1,4 +1,4 @@
-package br.com.agibank.model.Sales;
+package br.com.agibank.model.sales;
 
 import lombok.Builder;
 import lombok.Data;
@@ -14,5 +14,7 @@ public class Sale {
     private List<SaleItem> itens;
 
     private Salesman salesman;
+
+    private String salesmanName;
 
 }

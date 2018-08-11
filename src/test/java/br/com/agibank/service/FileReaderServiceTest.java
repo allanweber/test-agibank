@@ -1,7 +1,6 @@
-package br.com.agibank.Service;
+package br.com.agibank.service;
 
-import br.com.agibank.Parsers.SalesParser;
-import org.junit.Assert;
+import br.com.agibank.parsers.sales.SalesParser;
 import org.junit.Test;
 
 import static org.junit.Assert.*;

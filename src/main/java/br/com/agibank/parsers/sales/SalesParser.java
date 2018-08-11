@@ -1,13 +1,12 @@
-package br.com.agibank.Parsers;
+package br.com.agibank.parsers.sales;
 
+import br.com.agibank.parsers.IFileParser;
 import br.com.agibank.utilities.Console;
 
 import java.util.Arrays;
 import java.util.List;
 
 public class SalesParser implements IFileParser {
-
-    private String separator = "ç";
 
     private List<String> dataTypes = Arrays.asList("001", "002", "003");
 

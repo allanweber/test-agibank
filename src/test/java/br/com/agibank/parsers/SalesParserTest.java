@@ -1,5 +1,6 @@
-package br.com.agibank.Parsers;
+package br.com.agibank.parsers;
 
+import br.com.agibank.parsers.sales.SalesParser;
 import org.junit.Test;
 
 import java.util.Arrays;

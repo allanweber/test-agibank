@@ -1,4 +1,4 @@
-package br.com.agibank.Service;
+package br.com.agibank.service;
 
 public interface IFileEventListener {
     void FileAdded(String fileName);

@@ -1,8 +1,8 @@
 package br.com.agibank.model;
 
-import br.com.agibank.model.Sales.Sale;
-import br.com.agibank.model.Sales.SaleItem;
-import br.com.agibank.model.Sales.Salesman;
+import br.com.agibank.model.sales.Sale;
+import br.com.agibank.model.sales.SaleItem;
+import br.com.agibank.model.sales.Salesman;
 import org.junit.Test;
 
 import java.math.BigDecimal;

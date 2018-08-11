@@ -1,4 +1,4 @@
-package br.com.agibank.Parsers;
+package br.com.agibank.parsers;
 
 import java.util.List;
 
