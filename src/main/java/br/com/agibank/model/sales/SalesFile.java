@@ -112,7 +112,12 @@ public class SalesFile {
 
     public Salesman getWorstSalesman(){
 
-        return null;
+        Salesman man = this.salesmen
+                .stream()
+                .sorted(Comparator.comparing(Salesman::getSalesAmount))
+                .findFirst().orElse(null);
+
+        return man;
 
     }
 }

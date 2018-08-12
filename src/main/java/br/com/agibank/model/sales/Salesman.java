@@ -1,26 +1,37 @@
 package br.com.agibank.model.sales;
 
-import lombok.AccessLevel;
-import lombok.Builder;
-import lombok.Data;
-import lombok.Setter;
+import lombok.*;
 
 import java.math.BigDecimal;
 
 @Data
 @Builder
+@AllArgsConstructor
 public class Salesman {
 
-    private  String cpf;
+    public Salesman() {
+        salesAmount = new BigDecimal(0);
+    }
 
-    private  String name;
+    private String cpf;
+
+    private String name;
 
     private BigDecimal salary;
 
-    @Setter(AccessLevel.PRIVATE)
     private BigDecimal salesAmount;
 
-    public void addSaleAmount(BigDecimal value){
+    public BigDecimal getSalesAmount(){
+        if(salesAmount == null)
+            salesAmount = new BigDecimal(0);
+        return  salesAmount;
+    }
+
+    public  void getSalesAmount(BigDecimal value) {
+        salesAmount = value;
+    }
+
+    public void addSaleAmount(BigDecimal value) {
         if(salesAmount == null)
             salesAmount = new BigDecimal(0);
         salesAmount = salesAmount.add(value);
