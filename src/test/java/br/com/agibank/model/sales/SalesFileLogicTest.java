@@ -116,7 +116,7 @@ public class SalesFileLogicTest {
                                 Arrays.asList(
                                         SaleItem.builder()
                                                 .id(1)
-                                                .price(BigDecimal.valueOf(2.55))
+                                                .price(BigDecimal.valueOf(2))
                                                 .quantity(BigDecimal.valueOf(3))
                                                 .build()
                                 )
@@ -134,9 +134,11 @@ public class SalesFileLogicTest {
 
         Sale sale = file.getSales().get(0);
         assertTrue(sale.getSalesman().getName().equals("Vendedor 1"));
+        assertTrue(sale.getSalesman().getSalesAmount().doubleValue() == 7.65);
 
         sale = file.getSales().get(1);
         assertTrue(sale.getSalesman().getName().equals("Vendedor 2"));
+        assertTrue(sale.getSalesman().getSalesAmount().doubleValue() == 6);
     }
 
     @Test
@@ -272,6 +274,7 @@ public class SalesFileLogicTest {
         assertTrue(selected.getSalesmanName().equals("Vendedor 1"));
         assertTrue(selected.getSalesman() != null);
         assertTrue(selected.getSalesman().getCpf().equals("2345"));
+        assertTrue(selected.getSalesman().getSalesAmount().doubleValue() == 7.65);
 
         selected = file.getSales().get(0);
         assertTrue(selected.getSalesmanName().equals("Any Salesman"));

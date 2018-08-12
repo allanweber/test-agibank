@@ -1,8 +1,8 @@
 package br.com.agibank.model.sales;
 
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Data
@@ -17,4 +17,17 @@ public class Sale {
 
     private String salesmanName;
 
+    @Setter(AccessLevel.PRIVATE)
+    private BigDecimal total;
+
+    public void updateTotal() {
+        this.setTotal(new BigDecimal(0));
+
+        BigDecimal sum = new BigDecimal(0);
+        for (SaleItem item: itens) {
+            sum = sum.add(item.getPrice().multiply(item.getQuantity()));
+        }
+
+        setTotal(sum);
+    }
 }

@@ -33,7 +33,6 @@ public class SalesFileParser implements IFileParser {
                     Console.LogError(message + ": " + line);
                     throw new Exception(message);
                 }
-
             }
 
             if(file != null){

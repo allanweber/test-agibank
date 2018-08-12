@@ -4,6 +4,7 @@ package br.com.agibank.model.sales;
 import br.com.agibank.parsers.exceptions.FileDataException;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class SalesFile {
@@ -31,15 +32,17 @@ public class SalesFile {
 
         salesmen.add(salesman);
 
-        Sale selected = sales
+        Sale sale = sales
                 .stream()
-                .filter((sale) ->
-                        sale.getSalesman() == null && sale.getSalesmanName().equals(salesman.getName()))
+                .filter((sl) ->
+                        sl.getSalesman() == null && sl.getSalesmanName().equals(salesman.getName()))
                 .findFirst()
                 .orElse(null);
 
-        if (selected != null) {
-            selected.setSalesman(salesman);
+        if (sale != null) {
+            sale.setSalesman(salesman);
+            sale.updateTotal();
+            salesman.addSaleAmount(sale.getTotal());
         }
 
     }
@@ -64,6 +67,8 @@ public class SalesFile {
 
     public void addSale(Sale sale) throws FileDataException {
         if (sale.getSalesman() != null) {
+            sale.updateTotal();
+            sale.getSalesman().addSaleAmount(sale.getTotal());
             sale.setSalesmanName(sale.getSalesman().getName());
         } else if (sale.getSalesmanName() != null && !sale.getSalesmanName().isEmpty()) {
 
@@ -74,16 +79,40 @@ public class SalesFile {
                     .findFirst()
                     .orElse(null);
 
-            if (man != null)
+            if (man != null) {
                 sale.setSalesman(man);
+                sale.updateTotal();
+                man.addSaleAmount(sale.getTotal());
+            }
 
         } else {
             throw new FileDataException("There is no information about salesman in this sale");
         }
 
+        sale.updateTotal();
         sales.add(sale);
-
     }
 
+    public int getCustomersSize(){
+        return this.customers.size();
+    }
 
+    public int getSalesmanSize(){
+        return this.salesmen.size();
+    }
+
+    public Sale getGreaterSale(){
+        Sale sale = this.sales
+                .stream()
+                .sorted(Comparator.comparing(Sale::getTotal).reversed())
+                .findFirst().orElse(null);
+
+        return sale;
+    }
+
+    public Salesman getWorstSalesman(){
+
+        return null;
+
+    }
 }

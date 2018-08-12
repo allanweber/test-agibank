@@ -132,4 +132,145 @@ public class SalesFileTest {
         assertTrue(sale.getItens().size() == 1);
         assertTrue(sale.getId() == 2);
     }
+
+    @Test
+    public void checkTotal() throws FileDataException {
+        SalesFile salesFile = new SalesFile();
+        salesFile.addSale(
+                Sale.builder()
+                        .id(2)
+                        .salesmanName("Vendedor")
+                        .itens(
+                                Arrays.asList(
+                                        SaleItem.builder()
+                                                .id(1)
+                                                .price(BigDecimal.valueOf(5))
+                                                .quantity(BigDecimal.valueOf(6.78))
+                                                .build(),
+                                        SaleItem.builder()
+                                                .id(1)
+                                                .price(BigDecimal.valueOf(3))
+                                                .quantity(BigDecimal.valueOf(4))
+                                                .build()
+                                )
+                        )
+                        .build()
+        );
+
+        salesFile.addSale(
+                Sale.builder()
+                        .id(1)
+                        .salesmanName("Vendedor")
+                        .itens(
+                                Arrays.asList(
+                                        SaleItem.builder()
+                                                .id(1)
+                                                .price(BigDecimal.valueOf(10))
+                                                .quantity(BigDecimal.valueOf(6.78))
+                                                .build(),
+                                        SaleItem.builder()
+                                                .id(1)
+                                                .price(BigDecimal.valueOf(2))
+                                                .quantity(BigDecimal.valueOf(5.43))
+                                                .build()
+                                )
+                        )
+                        .build()
+        );
+
+        salesFile.addSale(
+                Sale.builder()
+                        .id(3)
+                        .salesmanName("Vendedor")
+                        .itens(
+                                Arrays.asList(
+                                        SaleItem.builder()
+                                                .id(1)
+                                                .price(BigDecimal.valueOf(1))
+                                                .quantity(BigDecimal.valueOf(6.78))
+                                                .build(),
+                                        SaleItem.builder()
+                                                .id(1)
+                                                .price(BigDecimal.valueOf(2))
+                                                .quantity(BigDecimal.valueOf(4.32))
+                                                .build()
+                                )
+                        )
+                        .build()
+        );
+
+        assertTrue(salesFile.getSales().get(0).getTotal().doubleValue() == 45.9);
+        assertTrue(salesFile.getSales().get(1).getTotal().doubleValue() == 78.66);
+        assertTrue(salesFile.getSales().get(2).getTotal().doubleValue() == 15.42);
+    }
+
+    @Test
+    public void checkGraterSale() throws FileDataException {
+        SalesFile salesFile = new SalesFile();
+        salesFile.addSale(
+                Sale.builder()
+                        .id(1)
+                        .salesmanName("Vendedor")
+                        .itens(
+                                Arrays.asList(
+                                        SaleItem.builder()
+                                                .id(1)
+                                                .price(BigDecimal.valueOf(5))
+                                                .quantity(BigDecimal.valueOf(6.78))
+                                                .build(),
+                                        SaleItem.builder()
+                                                .id(1)
+                                                .price(BigDecimal.valueOf(3))
+                                                .quantity(BigDecimal.valueOf(4))
+                                                .build()
+                                )
+                        )
+                        .build()
+        );
+
+        salesFile.addSale(
+                Sale.builder()
+                        .id(2)
+                        .salesmanName("Vendedor")
+                        .itens(
+                                Arrays.asList(
+                                        SaleItem.builder()
+                                                .id(1)
+                                                .price(BigDecimal.valueOf(10))
+                                                .quantity(BigDecimal.valueOf(6.78))
+                                                .build(),
+                                        SaleItem.builder()
+                                                .id(1)
+                                                .price(BigDecimal.valueOf(2))
+                                                .quantity(BigDecimal.valueOf(5.43))
+                                                .build()
+                                )
+                        )
+                        .build()
+        );
+
+        salesFile.addSale(
+                Sale.builder()
+                        .id(3)
+                        .salesmanName("Vendedor")
+                        .itens(
+                                Arrays.asList(
+                                        SaleItem.builder()
+                                                .id(1)
+                                                .price(BigDecimal.valueOf(1))
+                                                .quantity(BigDecimal.valueOf(6.78))
+                                                .build(),
+                                        SaleItem.builder()
+                                                .id(1)
+                                                .price(BigDecimal.valueOf(2))
+                                                .quantity(BigDecimal.valueOf(4.32))
+                                                .build()
+                                )
+                        )
+                        .build()
+        );
+
+        Sale bestSale = salesFile.getGreaterSale();
+        assertTrue(bestSale.getId().equals(2));
+    }
 }

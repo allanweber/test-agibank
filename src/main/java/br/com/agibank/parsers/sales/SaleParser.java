@@ -27,6 +27,7 @@ public class SaleParser {
                 .salesmanName(data[3])
                 .build();
 
+        sale.updateTotal();
         return sale;
     }
 
