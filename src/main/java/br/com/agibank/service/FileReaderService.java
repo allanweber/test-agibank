@@ -5,6 +5,8 @@ import br.com.agibank.utilities.Console;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,6 +37,9 @@ public class FileReaderService implements IFileEventListener {
 
             if(lines.size() > 0){
                 fileParser.parseFile(lines);
+                Path p = Paths.get(fileName);
+                String file = p.getFileName().toString();
+                fileParser.saveProcessedFile(file);
             }
 
         } catch (Exception e) {

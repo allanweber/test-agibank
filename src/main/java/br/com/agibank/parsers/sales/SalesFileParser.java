@@ -1,17 +1,26 @@
 package br.com.agibank.parsers.sales;
 
+import br.com.agibank.model.sales.Sale;
 import br.com.agibank.model.sales.SalesFile;
+import br.com.agibank.model.sales.Salesman;
 import br.com.agibank.parsers.IFileParser;
+import br.com.agibank.service.FileWriterService;
 import br.com.agibank.utilities.Console;
 
+import java.io.IOException;
 import java.util.List;
 
 public class SalesFileParser implements IFileParser {
 
     private SalesFile file;
+    private String writePath;
 
     public SalesFile getFullSaleFile(){
         return  file;
+    }
+
+    public SalesFileParser(String writePath){
+        this.writePath = writePath;
     }
 
     @Override
@@ -35,13 +44,33 @@ public class SalesFileParser implements IFileParser {
                 }
             }
 
-            if(file != null){
-
-            }
-
         } catch (Exception e) {
             e.printStackTrace();
         }
 
+    }
+
+    public void saveProcessedFile(String fileName){
+        try {
+
+            String wroteFile = writePath.concat("\\").concat(fileName.toLowerCase().replace(".dat", ".done.dat"));
+
+            FileWriterService writer = new  FileWriterService(wroteFile);
+
+            writer.writeLine(String.format("Quantidade de clientes no arquivo de entrada: %s", file.getCustomers().size()));
+
+            writer.writeLine(String.format("Quantidade de vendedores no arquivo de entrada: %s", file.getSalesmen().size()));
+
+            Sale greater = file.getGreaterSale();
+            writer.writeLine(String.format("ID da venda mais cara: %s", greater != null ? greater.getId() : "N/A"));
+
+            Salesman worst = file.getWorstSalesman();
+            writer.writeLine(String.format("O pior vendedor: %s", worst != null ? worst.getName() : "N/A"));
+
+            writer.done();
+
+        } catch (IOException e) {
+            Console.LogError("Erro ao escrever arquivo: " + e.getMessage());
+        }
     }
 }

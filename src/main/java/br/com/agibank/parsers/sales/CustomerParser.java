@@ -13,7 +13,7 @@ public class CustomerParser {
         String[] data = line.split(Constants.SEPARATOR);
 
         if(data.length != 4){
-            throw new InvalidFileDataSizeException("Customer data size must be 4");
+            throw new InvalidFileDataSizeException("Customer data size must be 4: " + line);
         }
 
         Customer customer = Customer.builder()
