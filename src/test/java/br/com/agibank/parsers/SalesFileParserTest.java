@@ -15,7 +15,7 @@ public class SalesFileParserTest {
     @Test
     public void ShouldParseFileThrowsException() {
         String message = "Data type of this line is not valid";
-        SalesFileParser parser = new SalesFileParser();
+        SalesFileParser parser = new SalesFileParser("");
         try {
             parser.parseFile(Arrays.asList("004ç1234567891234çDiegoç50000"));
         } catch (Exception e) {
@@ -35,7 +35,7 @@ public class SalesFileParserTest {
                         "003ç10ç[1-10-100,2-30-2.50,3-40-3.10]çDiego",
                         "003ç08ç[1-34-10,2-33-1.50,3-40-0.10]çRenato");
 
-        SalesFileParser parser = new SalesFileParser();
+        SalesFileParser parser = new SalesFileParser("");
         parser.parseFile(lines);
 
         SalesFile file  = parser.getFullSaleFile();

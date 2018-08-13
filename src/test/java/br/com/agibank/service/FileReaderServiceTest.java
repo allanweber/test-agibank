@@ -11,7 +11,7 @@ public class FileReaderServiceTest {
     public void ShouldFileAddedThrowsException() {
 
         String message = "Invalid format, only allowed .dat file extension";
-        FileReaderService fileReaderService = new FileReaderService(new SalesFileParser());
+        FileReaderService fileReaderService = new FileReaderService(new SalesFileParser(""));
 
         try {
             fileReaderService.validateExtension("arquivo.json");
@@ -23,7 +23,7 @@ public class FileReaderServiceTest {
     @Test
     public void ShouldFileAddedSucceed() throws Exception {
 
-        FileReaderService fileReaderService = new FileReaderService(new SalesFileParser());
+        FileReaderService fileReaderService = new FileReaderService(new SalesFileParser(""));
 
         fileReaderService.validateExtension("arquivo.dat");
 

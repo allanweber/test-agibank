@@ -28,7 +28,7 @@ public class WatcherServiceTest {
     public void ShouldRegisterListener() {
         WatcherService watcherService = new WatcherService();
 
-        FileReaderService reader = new FileReaderService(new SalesFileParser());
+        FileReaderService reader = new FileReaderService(new SalesFileParser(""));
         watcherService.registerListener(reader);
 
         assertTrue("Should has one listener", watcherService.getListeners().size() == 1);
